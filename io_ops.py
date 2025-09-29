@@ -22,5 +22,11 @@ Note:
 
 
 # --- Read the raw file text (assumes input.txt exists in the same folder) ---
-with open("input.txt", "r", encoding="utf-8") as file_in:
-    text_content = file_in.read()
+# Add exception to alleviate assumption of input.txt files existance hw
+# 
+try:
+    with open("input.txt", "r", encoding="utf-8") as file_in:
+        text_content = file_in.read()
+except FileNotFoundError as FNFE:
+    print(f"{FNFE}: File name not found")
+
