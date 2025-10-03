@@ -1,5 +1,7 @@
 import re
 from collections import Counter
+import re
+from io_ops import read_txt_file
 
 """
 Entry point (orchestration only).
@@ -25,10 +27,9 @@ def main() -> None:
     # Assignment 1 – Text Stats Project (deliberately NO functions / NO try/except)
 # Reads input.txt, prints results, and writes them to output.txt in the exact format.
 
-
+    read_txt_file()
     # --- Read the raw file text (assumes input.txt exists in the same folder) ---
-    with open("input.txt", "r", encoding="utf-8") as file_in:
-        text_content = file_in.read()
+
 
     # --- Character counts ---
     characters_with_spaces = len(text_content)
