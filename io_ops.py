@@ -25,15 +25,15 @@ Note:
 # Add exception to alleviate assumption of input.txt files existance hw
 # 
 
-
-try:
-    with open("input.txt", "r", encoding="utf-8") as file_in:
-        text_content = file_in.read()
-except FileNotFoundError as fnfe:
-    print(f"{fnfe}: File name not found")
-except PermissionError as pe:
-    print(f'{pe}: permission error found')
-except UnicodeDecodeError as ude:
-    print(f'{ude}: UnidcodedecodeError')
+def read_txt_file():     
+    try:
+        with open("input.txt", "r", encoding="utf-8") as file_in:
+            return file_in.read()
+    except FileNotFoundError as fnfe:
+        print(f"{fnfe}: File name not found")
+    except PermissionError as pe:
+        print(f'{pe}: permission error found')
+    except UnicodeDecodeError as ude:
+        print(f'{ude}: UnidcodedecodeError')
 
 
