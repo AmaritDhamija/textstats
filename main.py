@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from io_ops import read_txt_file, output_terminal
+from io_ops import read_txt_file, output_terminal, output_txt
 
 """
 Entry point (orchestration only).
@@ -90,13 +90,8 @@ def main() -> None:
 
     output_terminal(output_lines)
 
+    output_txt(output_lines)
 
-    # --- Write to output.txt ---
-    with open("output.txt", "w", encoding="utf-8") as file_out:
-        line_index = 0
-        while line_index < len(output_lines):
-            file_out.write(output_lines[line_index] + ("\n" if line_index < len(output_lines) - 1 else ""))
-            line_index += 1
 
 
 if __name__ == "__main__":

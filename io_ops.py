@@ -36,3 +36,10 @@ def output_terminal(output_lines):
         print(output_lines[line_index])
         line_index += 1
 
+def output_txt(output_lines):
+    with open("output.txt", "w", encoding="utf-8") as file_out:
+        line_index = 0
+        while line_index < len(output_lines):
+            file_out.write(output_lines[line_index] + ("\n" if line_index < len(output_lines) - 1 else ""))
+            line_index += 1
+
