@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from io_ops import read_txt_file
+from io_ops import read_txt_file, output_terminal
 
 """
 Entry point (orchestration only).
@@ -88,12 +88,8 @@ def main() -> None:
         most_common_line,
     ]
 
+    output_terminal(output_lines)
 
-    # --- Print to console ---
-    line_index = 0
-    while line_index < len(output_lines):
-        print(output_lines[line_index])
-        line_index += 1
 
     # --- Write to output.txt ---
     with open("output.txt", "w", encoding="utf-8") as file_out:

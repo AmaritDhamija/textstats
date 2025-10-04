@@ -29,3 +29,10 @@ def read_txt_file():
     with open("input.txt", "r", encoding="utf-8") as file_in:
         text_content = file_in.read()
     return text_content
+
+def output_terminal(output_lines):
+    line_index = 0
+    while line_index < len(output_lines):
+        print(output_lines[line_index])
+        line_index += 1
+
