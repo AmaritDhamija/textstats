@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 from io_ops import read_txt_file, output_terminal, output_txt, write_lines
-from text_stats import character_counts
+from text_stats import character_counts, total_letters
 
 """
 Entry point (orchestration only).
@@ -28,8 +28,7 @@ def main() -> None:
 # Reads input.txt, prints results, and writes them to output.txt in the exact format.
 
     text_content = read_txt_file()
-    # --- Read the raw file text (assumes input.txt exists in the same folder) ---
-    
+
     
     characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
 
@@ -41,12 +40,10 @@ def main() -> None:
     word_count = len(word_list)
     unique_word_count = len(set(word_list))
 
+
     # total letters across all words
-    total_letter_count = 0
-    word_index = 0
-    while word_index < len(word_list):
-        total_letter_count += len(word_list[word_index])
-        word_index += 1
+    total_letter_count = total_letters(word_list)
+
 
     # average word length with one decimal; 0.0 if there are no words
     average_word_length = (total_letter_count / word_count) if word_count != 0 else 0.0

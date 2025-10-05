@@ -30,3 +30,12 @@ def character_counts(text_content):
         char_index += 1
 
     return characters_with_spaces, characters_no_spaces, char_index
+
+def total_letters(word_list):
+    total_letter_count = 0
+    word_index = 0
+    while word_index < len(word_list):
+        total_letter_count += len(word_list[word_index])
+        word_index += 1
+
+    return total_letter_count
