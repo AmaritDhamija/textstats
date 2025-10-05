@@ -1,6 +1,7 @@
 import re
 from collections import Counter
 from io_ops import read_txt_file, output_terminal, output_txt, write_lines
+from text_stats import character_counts
 
 """
 Entry point (orchestration only).
@@ -29,16 +30,8 @@ def main() -> None:
     text_content = read_txt_file()
     # --- Read the raw file text (assumes input.txt exists in the same folder) ---
     
-
-    # --- Character counts ---
-    characters_with_spaces = len(text_content)
-    characters_no_spaces = 0
-    char_index = 0
-    while char_index < len(text_content):
-        current_char = text_content[char_index]
-        if not current_char.isspace():
-            characters_no_spaces += 1
-        char_index += 1
+    
+    characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
 
     # --- Word extraction: letters only (A–Z/a–z), case-insensitive for counting/uniqueness ---
     lowered_text = text_content.lower()
