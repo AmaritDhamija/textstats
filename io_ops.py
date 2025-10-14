@@ -29,3 +29,30 @@ def read_txt_file():
     with open("input.txt", "r", encoding="utf-8") as file_in:
         text_content = file_in.read()
     return text_content
+
+def write_lines(word_count, unique_word_count, characters_with_spaces, characters_no_spaces, average_word_length_str, most_common_line):
+    output_lines = [
+    f"Word count: {word_count}",
+    f"Unique words: {unique_word_count}",
+    f"Characters (with spaces): {characters_with_spaces}",
+    f"Characters (no spaces): {characters_no_spaces}",
+    f"Average word length: {average_word_length_str}",
+    most_common_line,
+    ]
+    return output_lines
+
+def output_terminal(output_lines):
+    line_index = 0
+    while line_index < len(output_lines):
+        print(output_lines[line_index])
+        line_index += 1
+
+
+
+def output_txt(output_lines):
+    with open("output.txt", "w", encoding="utf-8") as file_out:
+        line_index = 0
+        while line_index < len(output_lines):
+            file_out.write(output_lines[line_index] + ("\n" if line_index < len(output_lines) - 1 else ""))
+            line_index += 1
+

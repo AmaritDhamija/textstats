@@ -1,6 +1,7 @@
 import re
 from collections import Counter
-from io_ops import read_txt_file
+from io_ops import read_txt_file, output_terminal, output_txt, write_lines
+from text_stats import character_counts, total_letters
 
 """
 Entry point (orchestration only).
@@ -27,18 +28,9 @@ def main() -> None:
 # Reads input.txt, prints results, and writes them to output.txt in the exact format.
 
     text_content = read_txt_file()
-    # --- Read the raw file text (assumes input.txt exists in the same folder) ---
-    
 
-    # --- Character counts ---
-    characters_with_spaces = len(text_content)
-    characters_no_spaces = 0
-    char_index = 0
-    while char_index < len(text_content):
-        current_char = text_content[char_index]
-        if not current_char.isspace():
-            characters_no_spaces += 1
-        char_index += 1
+    
+    characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
 
     # --- Word extraction: letters only (A–Z/a–z), case-insensitive for counting/uniqueness ---
     lowered_text = text_content.lower()
@@ -48,12 +40,10 @@ def main() -> None:
     word_count = len(word_list)
     unique_word_count = len(set(word_list))
 
+
     # total letters across all words
-    total_letter_count = 0
-    word_index = 0
-    while word_index < len(word_list):
-        total_letter_count += len(word_list[word_index])
-        word_index += 1
+    total_letter_count = total_letters(word_list)
+
 
     # average word length with one decimal; 0.0 if there are no words
     average_word_length = (total_letter_count / word_count) if word_count != 0 else 0.0
@@ -78,29 +68,13 @@ def main() -> None:
         else:
             most_common_line = f"Most common word(s): {', '.join(most_frequent_words)} ({highest_frequency})"
 
-    # --- Build the six required lines in the exact order/format ---
-    output_lines = [
-        f"Word count: {word_count}",
-        f"Unique words: {unique_word_count}",
-        f"Characters (with spaces): {characters_with_spaces}",
-        f"Characters (no spaces): {characters_no_spaces}",
-        f"Average word length: {average_word_length_str}",
-        most_common_line,
-    ]
 
+    output_lines = write_lines(word_count, unique_word_count, characters_with_spaces, characters_no_spaces, average_word_length_str, most_common_line)
 
-    # --- Print to console ---
-    line_index = 0
-    while line_index < len(output_lines):
-        print(output_lines[line_index])
-        line_index += 1
+    output_terminal(output_lines)
 
-    # --- Write to output.txt ---
-    with open("output.txt", "w", encoding="utf-8") as file_out:
-        line_index = 0
-        while line_index < len(output_lines):
-            file_out.write(output_lines[line_index] + ("\n" if line_index < len(output_lines) - 1 else ""))
-            line_index += 1
+    output_txt(output_lines)
+
 
 
 if __name__ == "__main__":
