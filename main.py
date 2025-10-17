@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 from io_ops import read_txt_file, output_terminal, output_txt, write_lines
-from text_stats import character_counts, total_letters
+from text_stats import character_counts, total_letters, word_extraction, word_statistics
 
 """
 Entry point (orchestration only).
@@ -32,14 +32,10 @@ def main() -> None:
     
     characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
 
-    # --- Word extraction: letters only (A–Z/a–z), case-insensitive for counting/uniqueness ---
-    lowered_text = text_content.lower()
-    word_list = re.findall(r"[a-zA-Z]+", lowered_text)
+    word_list = word_extraction(text_content)
 
     # --- Word statistics ---
-    word_count = len(word_list)
-    unique_word_count = len(set(word_list))
-
+    word_count, unique_word_count = word_statistics(word_list)
 
     # total letters across all words
     total_letter_count = total_letters(word_list)
