@@ -55,3 +55,9 @@ def total_letters(word_list):
 
     return total_letter_count
 
+def avg_word_length(total_letter_count, word_count):
+    average_word_length = (total_letter_count / word_count) if word_count != 0 else 0.0
+    average_word_length_str = f"{average_word_length:.1f}"
+
+    return average_word_length_str
+

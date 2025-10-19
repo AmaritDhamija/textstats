@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 from io_ops import read_txt_file, output_terminal, output_txt, write_lines
-from text_stats import character_counts, total_letters, word_extraction, word_statistics
+from text_stats import character_counts, total_letters, word_extraction, word_statistics, avg_word_length
 
 """
 Entry point (orchestration only).
@@ -36,17 +36,10 @@ def main() -> None:
 
     word_count, unique_word_count = word_statistics(word_list)
 
-    # --- Word statistics ---
-
-
-
-    # total letters across all words
+    
     total_letter_count = total_letters(word_list)
 
-
-    # average word length with one decimal; 0.0 if there are no words
-    average_word_length = (total_letter_count / word_count) if word_count != 0 else 0.0
-    average_word_length_str = f"{average_word_length:.1f}"
+    average_word_length_str = avg_word_length(total_letter_count, word_count)
 
     # --- Most common word(s) and frequency ---
     if word_count == 0:
