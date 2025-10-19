@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 from io_ops import read_txt_file, output_terminal, output_txt, write_lines
-from text_stats import character_counts, total_letters, word_extraction
+from text_stats import character_counts, total_letters, word_extraction, word_statistics
 
 """
 Entry point (orchestration only).
@@ -34,11 +34,10 @@ def main() -> None:
 
     word_list = word_extraction(text_content)
 
-
+    word_count, unique_word_count = word_statistics(word_list)
 
     # --- Word statistics ---
-    word_count = len(word_list)
-    unique_word_count = len(set(word_list))
+
 
 
     # total letters across all words

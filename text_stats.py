@@ -39,6 +39,13 @@ def word_extraction(text_content):
 
     return word_list
 
+def word_statistics(word_list):
+    word_count = len(word_list)
+    unique_word_count = len(set(word_list))
+
+    return word_count, unique_word_count
+
+
 def total_letters(word_list):
     total_letter_count = 0
     word_index = 0
