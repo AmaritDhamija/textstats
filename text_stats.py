@@ -61,3 +61,23 @@ def avg_word_length(total_letter_count, word_count):
 
     return average_word_length_str
 
+def most_common_words(word_count, word_list):
+    if word_count == 0:
+        most_common_line = "Most common word(s): (0)"
+    else:
+        word_counts = Counter(word_list)
+        highest_frequency = 0
+        for word in word_counts:
+            if word_counts[word] > highest_frequency:
+                highest_frequency = word_counts[word]
+        most_frequent_words = []
+        for word in word_counts:
+            if word_counts[word] == highest_frequency:
+                most_frequent_words.append(word)
+        most_frequent_words.sort()
+        if len(most_frequent_words) == 1:
+            most_common_line = f"Most common word(s): {most_frequent_words[0]} ({highest_frequency})"
+        else:
+            most_common_line = f"Most common word(s): {', '.join(most_frequent_words)} ({highest_frequency})"
+    
+    return most_common_line
