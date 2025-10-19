@@ -17,6 +17,8 @@ Rules:
 # - Consider a constant regex pattern for words.
 # - Separate calculation from formatting.
 # - Return data structures that are easy to test.
+import re
+from collections import Counter
 
     # --- Character counts ---
 def character_counts(text_content):
@@ -31,6 +33,12 @@ def character_counts(text_content):
 
     return characters_with_spaces, characters_no_spaces, char_index
 
+def word_extraction(text_content):
+    lowered_text = text_content.lower()
+    word_list = re.findall(r"[a-zA-Z]+", lowered_text)
+
+    return word_list
+
 def total_letters(word_list):
     total_letter_count = 0
     word_index = 0
@@ -39,3 +47,4 @@ def total_letters(word_list):
         word_index += 1
 
     return total_letter_count
+
