@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from io_ops import read_txt_file, output_terminal, output_txt, write_lines
+from io_ops import read_txt_file, output_terminal, output_txt, write_lines, input_filename
 from text_stats import character_counts, total_letters, word_extraction, word_statistics, avg_word_length, most_common_words
 
 """
@@ -26,8 +26,9 @@ def main() -> None:
     # 5) write to output file (io_ops)
     # Assignment 1 – Text Stats Project (deliberately NO functions / NO try/except)
 # Reads input.txt, prints results, and writes them to output.txt in the exact format.
+    file_name = input_filename()
 
-    text_content = read_txt_file()
+    text_content = read_txt_file(file_name)
 
     characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
 

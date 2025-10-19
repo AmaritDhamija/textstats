@@ -25,8 +25,12 @@ Note:
 # Add exception to alleviate assumption of input.txt files existance hw
 # 
 
-def read_txt_file():     
-    with open("input.txt", "r", encoding="utf-8") as file_in:
+def input_filename():
+    file_name = str(input("Please input file name: "))
+    return file_name
+
+def read_txt_file(file_name):     
+    with open(file_name, "r", encoding="utf-8") as file_in:
         text_content = file_in.read()
     return text_content
 
