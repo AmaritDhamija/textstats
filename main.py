@@ -1,58 +1,75 @@
-import re
-from collections import Counter
-from io_ops import read_txt_file, output_terminal, output_txt, write_lines, input_filename
-from text_stats import character_counts, total_letters, word_extraction, word_statistics, avg_word_length, most_common_words
-
 """
-Entry point (orchestration only).
+Text Statistics Analyzer - OOP Version
 
-TODO (team):
-- Prompt for input file path (interactive) — keep logic minimal.
-- Call functions from text_stats.py to compute results.
-- Print six output lines in exact format.
-- Prompt for output file, confirm overwrite, write lines via io_ops.py.
-- Ensure this file stays "thin" — no heavy logic here.
+Main entry point for the text analysis program.
+
+This script orchestrates the workflow using three classes students implement:
+- FileHandler      : user prompts, file reads/writes
+- TextProcessor    : text cleaning and tokenization
+- TextAnalyzer     : statistics and formatted report
+
+IMPORTANT:
+- The console prints below are **design probes** that call small, focused
+  methods on TextAnalyzer. They are for visibility only and must NOT change
+  the program’s final output. The official output is still whatever
+  get_formatted_output() returns and what we write to the output file.
 """
 
-# from io_ops import ...   # TODO: import the small set of I/O helpers you create
-# from text_stats import ...  # TODO: import your pure functions
+from text_processor import TextProcessor
+from text_analyzer import TextAnalyzer
+from file_handler import FileHandler
 
-def main() -> None:
-    # TODO: glue together a simple flow:
-    # 1) get input path (prompt)
-    # 2) read text (io_ops)
-    # 3) compute metrics (text_stats)
-    # 4) print to console
-    # 5) write to output file (io_ops)
-    # Assignment 1 – Text Stats Project (deliberately NO functions / NO try/except)
-# Reads input.txt, prints results, and writes them to output.txt in the exact format.
-    file_name = input_filename()
 
-    text_content = read_txt_file(file_name)
+def main():
+    print("=== Text Statistics Analyzer (OOP) ===\n")
 
-    characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
+    # 1) Read input
+    print("[main] Initializing FileHandler and reading input file...")
+    file_handler = FileHandler()
+    raw_text = file_handler.read_input_file()
+    print(f"[main] Loaded {len(raw_text)} characters.\n")
 
-    word_list = word_extraction(text_content)
+    # 2) Process text
+    print("[main] Initializing TextProcessor and extracting words...")
+    processor = TextProcessor(raw_text)
+    words = processor.get_words()
+    print(f"[main] Extracted {len(words)} words.\n")
 
-    # --- Word statistics ---
-    word_count, unique_word_count = word_statistics(word_list)
+    # 3) Analyze
+    print("[main] Initializing TextAnalyzer and running analyze()...")
+    analyzer = TextAnalyzer(raw_text, words)
+    analyzer.analyze()
+    print("[main] analyze() complete.\n")
 
-    
-    total_letter_count = total_letters(word_list)
+    # 4) Design probes (expected to exist; do not modify final output)
+    print("--- Design Probes (for learning visibility only) ---")
+    word_count = analyzer.get_word_count()
+    print(f"[probe] get_word_count() -> {word_count}")
 
-    average_word_length_str = avg_word_length(total_letter_count, word_count)
+    unique_word_count = analyzer.get_unique_word_count()
+    print(f"[probe] get_unique_word_count() -> {unique_word_count}")
 
-    most_common_line = most_common_words(word_count, word_list)
+    most_common_word = analyzer.get_most_common_word()
+    print(f"[probe] get_most_common_word() -> {most_common_word}")
 
-    output_lines = write_lines(word_count, unique_word_count, characters_with_spaces, characters_no_spaces, average_word_length_str, most_common_line)
+    letter_freqs_preview = analyzer.get_letter_frequencies(include_zeros=True)
+    # Show a deterministic, tiny preview to avoid cluttering the console
+    preview_keys = sorted(letter_freqs_preview.keys())[:5]
+    preview = {k: letter_freqs_preview[k] for k in preview_keys}
+    print(f"[probe] get_letter_frequencies(include_zeros=True) -> preview {preview}")
+    print("--- End Design Probes ---\n")
 
-    output_terminal(output_lines)
+    # 5) Official output (the program's actual result)
+    print("--- Analysis Results ---")
+    final_output = analyzer.get_formatted_output()
+    print(final_output)
 
-    output_txt(output_lines)
+    # 6) Write results
+    print("\n[main] Writing results to output file...")
+    file_handler.write_output_file(final_output)
 
+    print("\nAnalysis complete!")
 
 
 if __name__ == "__main__":
     main()
-
-
