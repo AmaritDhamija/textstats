@@ -34,6 +34,7 @@ def main() -> None:
 
     word_list = word_extraction(text_content)
 
+    # --- Word statistics ---
     word_count, unique_word_count = word_statistics(word_list)
 
     
