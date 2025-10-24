@@ -1,7 +1,7 @@
 import re
 from collections import Counter
-from io_ops import read_txt_file, output_terminal, output_txt, write_lines
-from text_stats import character_counts, total_letters, word_extraction, word_statistics
+from io_ops import read_txt_file, output_terminal, output_txt, write_lines, input_filename
+from text_stats import character_counts, total_letters, word_extraction, word_statistics, avg_word_length, most_common_words
 
 """
 Entry point (orchestration only).
@@ -26,10 +26,10 @@ def main() -> None:
     # 5) write to output file (io_ops)
     # Assignment 1 – Text Stats Project (deliberately NO functions / NO try/except)
 # Reads input.txt, prints results, and writes them to output.txt in the exact format.
+    file_name = input_filename()
 
-    text_content = read_txt_file()
+    text_content = read_txt_file(file_name)
 
-    
     characters_with_spaces, characters_no_spaces, char_index = character_counts(text_content)
 
     word_list = word_extraction(text_content)
@@ -37,33 +37,12 @@ def main() -> None:
     # --- Word statistics ---
     word_count, unique_word_count = word_statistics(word_list)
 
-    # total letters across all words
+    
     total_letter_count = total_letters(word_list)
 
+    average_word_length_str = avg_word_length(total_letter_count, word_count)
 
-    # average word length with one decimal; 0.0 if there are no words
-    average_word_length = (total_letter_count / word_count) if word_count != 0 else 0.0
-    average_word_length_str = f"{average_word_length:.1f}"
-
-    # --- Most common word(s) and frequency ---
-    if word_count == 0:
-        most_common_line = "Most common word(s): (0)"
-    else:
-        word_counts = Counter(word_list)
-        highest_frequency = 0
-        for word in word_counts:
-            if word_counts[word] > highest_frequency:
-                highest_frequency = word_counts[word]
-        most_frequent_words = []
-        for word in word_counts:
-            if word_counts[word] == highest_frequency:
-                most_frequent_words.append(word)
-        most_frequent_words.sort()
-        if len(most_frequent_words) == 1:
-            most_common_line = f"Most common word(s): {most_frequent_words[0]} ({highest_frequency})"
-        else:
-            most_common_line = f"Most common word(s): {', '.join(most_frequent_words)} ({highest_frequency})"
-
+    most_common_line = most_common_words(word_count, word_list)
 
     output_lines = write_lines(word_count, unique_word_count, characters_with_spaces, characters_no_spaces, average_word_length_str, most_common_line)
 

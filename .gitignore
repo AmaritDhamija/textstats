@@ -15,3 +15,5 @@ dist/
 .vscode/
 # Project specific ignores
 output.txt
+
+tempCodeRunnerFile.py
